@@ -1,5 +1,5 @@
-## 0.0.1
+## 0.0.3
 
 * TODO: Describe initial release.
 
-Add text watermark on image.
+Add text watermark and image watermark on image.
