@@ -5,7 +5,7 @@ Based on [Image](https://pub.dev/packages/image/) pacakge.\
 Check on pub.dev: https://pub.dev/packages/image_watermark
 
 ## Example code
-
+Add watermark text at center of image,parameter image bytes and string and it returns image bytes
 ```dart
 var watermarkedImg = await image_watermark.addTextWatermarkCentered(imgBytes,'watermarkText');
 ```
@@ -17,7 +17,7 @@ var watermarkedImgBytes = await image_watermark.addTextWatermarkCentered(
                         color: Colors.black, ///default : Colors.white
                       );
 ```
-
+Change the position of watermark
 ```dart
 var watermarkedImg = await image_watermark.addTextWatermark(
                           imgBytes,             ///image bytes
@@ -27,7 +27,7 @@ var watermarkedImg = await image_watermark.addTextWatermark(
                           color: Colors.green, ///default : Colors.white
                         )
 ```
-
+Add image as watermark on image
 ```dart
 watermarkedImgBytes = await image_watermark.addImageWatermark(imgBytes,watermarkImgByte);
 ```
