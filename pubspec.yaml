@@ -1,6 +1,6 @@
 name: image_watermark
 description: Flutter package to add text or image watermark on image,you can customize the position of watermark and color.
-version: 0.0.3
+version: 0.0.4
 homepage: https://github.com/saurabh-m-w/image_watermark
 
 environment:
