@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:image/image.dart' as ui;
 
 class image_watermark {
+
   static Future<Uint8List> addTextWatermark(
-      Uint8List imgBytes, String watermarktext, int dstX, int dstY,
-      {Color color = Colors.black}) async {
+      Uint8List imgBytes, String watermarktext, int dstX, int dstY,ui.BitmapFont arial, {Color color = Colors.black}) async {
     ui.Image originalImage = ui.decodeImage(imgBytes) as ui.Image;
 
-    ui.drawString(originalImage, ui.arial_48, dstX, dstY, watermarktext,
+    ui.drawString(originalImage, arial, dstX, dstY, watermarktext,
         color: color.value);
-
+        
     List<int> wmImage = ui.encodePng(originalImage);
     Uint8List res = Uint8List.fromList(wmImage);
     return res;
