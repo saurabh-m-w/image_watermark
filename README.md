@@ -1,5 +1,10 @@
 # image_watermark
 
+<div align="center">
+**Languages:**
+[![Spanish](https://img.shields.io/badge/Language-Spanish-blueviolet?style=for-the-badge)](README-es.md)
+</div>
+
 Image watermark is flutter pacakge to add text watermark and image watermark on image,you can customize the position of watermark and color.
 Based on [Image](https://pub.dev/packages/image/) pacakge.\
 Check on pub.dev: https://pub.dev/packages/image_watermark
