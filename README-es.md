@@ -1,9 +1,8 @@
 # image_watermark
 
-<div align="center">
-**Idiomas:**
+## Idiomas:
 [![English](https://img.shields.io/badge/Language-English-blueviolet?style=for-the-badge)](README.md)
-</div>
+
 
 Image watermark es un paquete de flutter para agregar a cualquier imagen textos u otras imágenes como marcas de agua, puedes personalizar la posición de la marca de agua y el color. Basado en el paquete [Image](https://pub.dev/packages/image/).\
 Publicación del paquete: https://pub.dev/packages/image_watermark
