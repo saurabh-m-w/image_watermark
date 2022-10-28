@@ -4,7 +4,7 @@ version: 0.0.5
 homepage: https://github.com/saurabh-m-w/image_watermark
 
 environment:
-  sdk: '>=2.19.0-317.0.dev <3.0.0'
+  sdk: '>=2.17.3 <3.0.0'
 
 dependencies:
   flutter:
