@@ -1,5 +1,9 @@
 # image_watermark
 
+## Languages:
+[![Spanish](https://img.shields.io/badge/Language-Spanish-blueviolet?style=for-the-badge)](README-es.md)
+
+
 Image watermark is flutter pacakge to add text watermark and image watermark on image,you can customize the position of watermark and color.
 Based on [Image](https://pub.dev/packages/image/) pacakge.\
 Check on pub.dev: https://pub.dev/packages/image_watermark
@@ -7,39 +11,46 @@ Check on pub.dev: https://pub.dev/packages/image_watermark
 ## Example code
 Add watermark text at center of image,parameter image bytes and string and it returns image bytes
 ```dart
-var watermarkedImg = await image_watermark.addTextWatermarkCentered(imgBytes,'watermarkText');
+final watermarkedImg = await ImageWatermark.addTextWatermarkCentered(
+  imgBytes: imgBytes,
+  watermarktext: 'watermarkText',
+  );
 ```
 
 ```dart
-var watermarkedImgBytes = await image_watermark.addTextWatermarkCentered(
-                        imgBytes, ///image bytes
-                        watermarkText, ///watermark text
-                        color: Colors.black, ///default : Colors.white
+final watermarkedImgBytes = await ImageWatermark.addTextWatermarkCentered(
+                        imgBytes: imgBytes, ///image bytes
+                        watermarktext: 'watermarkText', ///watermark text
+                        color: Colors.white, ///default : Colors.black
                       );
 ```
 Change the position of watermark
 ```dart
-var watermarkedImg = await image_watermark.addTextWatermark(
-                          imgBytes,             ///image bytes
-                          'watermarkText',      ///watermark text
-                          20,                   ///position of watermark x coordinate
-                          30,                   ///y coordinate
-                          color: Colors.green, ///default : Colors.white
+final watermarkedImg = await ImageWatermark.addTextWatermark(
+                          imgBytes: imgBytes,             ///image bytes
+                          watermarktext: 'watermarkText',      ///watermark text
+                          dstX: 20,                   ///position of watermark x coordinate
+                          dstY: 30,                   ///y coordinate
+                          color: Colors.green, ///default : Colors.black
                         )
 ```
 Add image as watermark on image
 ```dart
-watermarkedImgBytes = await image_watermark.addImageWatermark(imgBytes,watermarkImgByte);
+final watermarkedImgBytes = await ImageWatermark.addImageWatermark(
+  originalImageBytes: imgBytes,
+  waterkmarkImageBytes: watermarkImgByte,
+  );
 ```
 
 ```dart
-watermarkedImgBytes = await image_watermark.addImageWatermark(
-                              imgBytes, //image bytes
-                              imgBytes2,//watermark img bytes
+final watermarkedImgBytes = await ImageWatermark.addImageWatermark(
+                              originalImageBytes: imgBytes,  //image bytes
+                              waterkmarkImageBytes: imgBytes2, //watermark img bytes
                               imgHeight: 200,   //watermark img height
                               imgWidth: 200,    //watermark img width
                               dstY: 400,
-                              dstX: 400);
+                              dstX: 400,
+                              );
 ```
 
 <img src="https://raw.githubusercontent.com/saurabh-m-w/image_watermark/main/screenshots/screenshot1.png" height="400">
