@@ -10,6 +10,7 @@
 * Add class `ImageFont` for change the font.
 * Upgrae the example (only android).
 * Update example gradle files (android).
+* Update Readme files.
 
 ## 0.0.5
 
