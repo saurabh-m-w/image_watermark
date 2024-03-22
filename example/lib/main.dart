@@ -1,6 +1,5 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_watermark/image_watermark.dart';
 
@@ -9,7 +8,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   HomeScreenState createState() => HomeScreenState();
@@ -38,6 +37,8 @@ class HomeScreenState extends State<HomeScreen> {
   Uint8List? watermarkedImgBytes;
   bool isLoading = false;
   String watermarkText = "", imgname = "image not selected";
+  bool isLenovoFont = false;
+  Uint8List? file;
   List<bool> textOrImage = [true, false];
 
   pickImage() async {
@@ -61,6 +62,18 @@ class HomeScreenState extends State<HomeScreen> {
       imgname = image.name;
       var t = await image.readAsBytes();
       imgBytes2 = Uint8List.fromList(t);
+    }
+    setState(() {});
+  }
+
+  changeFont() async {
+    isLenovoFont = !isLenovoFont;
+    if (isLenovoFont) {
+      // Read file.zip from assets/fonts
+      final assetFont = await rootBundle.load('assets/fonts/file.zip');
+      file = assetFont.buffer.asUint8List(assetFont.offsetInBytes, assetFont.lengthInBytes);
+    } else {
+      file = null;
     }
     setState(() {});
   }
@@ -89,9 +102,9 @@ class HomeScreenState extends State<HomeScreen> {
                       width: 600,
                       height: 250,
                       child: _image == null
-                          ? Column(
+                          ? const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Icon(Icons.add_a_photo),
                                 SizedBox(
                                   height: 10,
@@ -135,21 +148,30 @@ class HomeScreenState extends State<HomeScreen> {
                   height: 10,
                 ),
                 textOrImage[0]
-                    ? Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: SizedBox(
-                          width: 600,
-                          child: TextField(
-                            onChanged: (val) {
-                              watermarkText = val;
-                            },
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Watermark Text',
-                              hintText: 'Watermark Text',
+                    ? Column(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () async => await changeFont(),
+                            child: Text(
+                                'Change Font ${isLenovoFont ? 'Arial' : 'Lenovo'}'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: SizedBox(
+                              width: 600,
+                              child: TextField(
+                                onChanged: (val) {
+                                  watermarkText = val;
+                                },
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Watermark Text',
+                                  hintText: 'Watermark Text',
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       )
                     : Row(
                         children: [
@@ -173,6 +195,11 @@ class HomeScreenState extends State<HomeScreen> {
                         ///image bytes
                         imgBytes: imgBytes!,
 
+                        /// Change font
+                        font: isLenovoFont
+                            ? ImageFont.readOtherFontZip(file!)
+                            : null,
+
                         ///watermark text
                         watermarkText: watermarkText,
                         dstX: 20,
@@ -186,8 +213,8 @@ class HomeScreenState extends State<HomeScreen> {
                               //image bytes
                               originalImageBytes: imgBytes!,
                               waterkmarkImageBytes: imgBytes2!,
-                              imgHeight: 200,
-                              imgWidth: 200,
+                              imgHeight: 250,
+                              imgWidth: 250,
                               dstY: 400,
                               dstX: 400);
                     }

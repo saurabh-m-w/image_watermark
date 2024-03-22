@@ -2,6 +2,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as ui;
 
+export 'package:image_watermark/fonts/image_font.dart';
+
 class ImageWatermark {
   ///This method adds the text that is indicated as a watermark,
   ///the parameters are the following:
@@ -24,10 +26,10 @@ class ImageWatermark {
     required String watermarkText,
 
     ///X coordinates in the image
-    required int dstX,
+    int? dstX,
 
     ///Y coordinates in the image
-    required int dstY,
+    int? dstY,
 
     ///Text font type
     ui.BitmapFont? font,
@@ -44,11 +46,11 @@ class ImageWatermark {
     ///Add Watermark
     ui.drawString(
       originalImage,
-      font ?? ui.arial_48,
-      dstX,
-      dstY,
       watermarkText,
-      color: color.value,
+      font: font ?? ui.arial48,
+      x: dstX,
+      y: dstY,
+      color: _getColor(color),
       rightJustify: rightJustify,
     );
 
@@ -71,12 +73,13 @@ class ImageWatermark {
   ///   color: //Text color (default black)
   /// );
   /// ```
+  @Deprecated('Use addTextWatermark with [dstX] and [dstY] as null instead')
   static Future<Uint8List> addTextWatermarkCentered({
     ///Image converted to Uint8List
     required Uint8List imgBytes,
 
     ///The text
-    required String watermarktext,
+    required String watermarkText,
 
     ///Text font type
     ui.BitmapFont? font,
@@ -88,11 +91,12 @@ class ImageWatermark {
     final originalImage = ui.decodeImage(imgBytes)!;
 
     ///Add Watermark
-    ui.drawStringCentered(
+    ///
+    ui.drawString(
       originalImage,
-      font ?? ui.arial_48,
-      watermarktext,
-      color: color.value,
+      watermarkText,
+      font: font ?? ui.arial48,
+      color: _getColor(color),
     );
 
     ///Encode image to PNG
@@ -132,11 +136,13 @@ class ImageWatermark {
 
     // add watermark over originalImage
     // initialize width and height of watermark image
-    final image = ui.Image(imgHeight, imgWidth);
-    ui.drawImage(image, watermark);
+    final image = ui.Image(height: imgHeight, width: imgWidth);
+
+    ui.compositeImage(image, watermark);
+    // ui.drawImage(image, watermark);
 
     // give position to watermark over image
-    ui.copyInto(
+    ui.compositeImage(
       original,
       image,
       dstX: dstX,
@@ -151,4 +157,7 @@ class ImageWatermark {
 
     return result;
   }
+
+  static ui.Color _getColor(Color color) =>
+      ui.ColorRgba8(color.red, color.green, color.blue, color.alpha);
 }
